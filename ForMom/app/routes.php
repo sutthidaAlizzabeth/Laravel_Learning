@@ -15,3 +15,9 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::group(array('before' => 'guest') , function()
+	{
+	Route::get('/user/create', 'UserController@getCreate');
+	Route::get('/user/login', 'UserController@getLogin');
+	});
