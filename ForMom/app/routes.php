@@ -11,13 +11,16 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', 'HomeController@hello');
 
 Route::group(array('before' => 'guest') , function()
+{
+	Route::get('user/create', 'UserController@getCreate');
+	Route::get('user/login', 'UserController@getLogin');
+
+	Route::group(array('befor' => 'csrf'), function()
 	{
-	Route::get('/user/create', 'UserController@getCreate');
-	Route::get('/user/login', 'UserController@getLogin');
+		Route::get('user/create', 'UserController@postCreate');
+		Route::get('user/login', 'UserController@postLogin');
 	});
+});
