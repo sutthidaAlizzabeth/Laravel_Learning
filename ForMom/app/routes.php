@@ -15,12 +15,12 @@ Route::get('/', 'HomeController@hello');
 
 Route::group(array('before' => 'guest') , function()
 {
-	Route::get('user/create', 'UserController@getCreate');
-	Route::get('user/login', 'UserController@getLogin');
+	Route::get('/user/create', array('uses' => 'UserController@getCreate', 'as' => 'getCreate'));
+	Route::get('/user/login', 'UserController@getLogin');
 
-	Route::group(array('befor' => 'csrf'), function()
+	Route::group(array('before' => 'csrf'), function()
 	{
-		Route::get('user/create', 'UserController@postCreate');
-		Route::get('user/login', 'UserController@postLogin');
+		Route::post('/user/create', array('uses' => 'UserController@postCreate' , 'as' => 'postCreate'));
+		Route::post('/user/login', 'UserController@postLogin');
 	});
 });
